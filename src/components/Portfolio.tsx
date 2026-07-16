@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback, useLayoutEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-import laptopFrame from "/Images/laptop.jpg";
+import laptopFrame from "/Images/laptop.png";
 import petswatch from "/Images/mockup1.jpg";
 import wholefoods from "/Images/mockup2.jpg";
 import foodpeon from "/Images/mockup3.jpg";
