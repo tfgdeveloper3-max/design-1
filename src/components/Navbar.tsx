@@ -53,8 +53,8 @@ export default function Navbar() {
                             <MapPin size={16} strokeWidth={2.4} />
                         </span>
                         <div className="navbar__info-text">
-                            <span className="navbar__info-label">1234 Demo Address/5467</span>
-                            <span className="navbar__info-value">Streer, Area</span>
+                            <span className="navbar__info-label">6210 Wilshire Blvd Ste 200 </span>
+                            <span className="navbar__info-value">Los Angeles CA 90048</span>
                         </div>
                     </div>
 
