@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { createPortal } from "react-dom"
-import { Phone, Mail, MessageSquare } from "lucide-react"
+import { Phone, Mail } from "lucide-react"
 import "./sticky-bar.css"
 
 export default function StickyContactBar() {

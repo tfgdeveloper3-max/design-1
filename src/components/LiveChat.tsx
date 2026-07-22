@@ -21,7 +21,7 @@ export default function LiveChat() {
                 window.LiveChatWidget.call("maximize");
             });
 
-            window.LiveChatWidget.on("new_event", (event) => {
+            window.LiveChatWidget.on("new_event", (event:any) => {
                 if (
                     ["message", "rich_message", "file"].includes(event.type) &&
                     event.author?.type !== "customer"
