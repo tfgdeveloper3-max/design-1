@@ -143,7 +143,7 @@ export default function About() {
                     </motion.h2>
 
                     <motion.p className="about__desc" variants={fadeUp}>
-                        Web Design Avalon specializes in creating captivating brand
+                        Granite Codes specializes in creating captivating brand
                         experiences that inspire audiences that truly count.
                     </motion.p>
 

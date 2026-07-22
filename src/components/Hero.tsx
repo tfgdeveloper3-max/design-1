@@ -91,7 +91,7 @@ export default function Hero({ children }: { children?: ReactNode }) {
                     </motion.h1>
 
                     <motion.p className="hero__desc" variants={fadeUp}>
-                        Web Design Avalon is your versatile platform for crafting stunning,
+                        Granite Codes is your versatile platform for crafting stunning,
                         interactive websites, catering to personal blogs, e-commerce shops,
                         corporate sites, and custom web applications, all designed to
                         captivate your audience.

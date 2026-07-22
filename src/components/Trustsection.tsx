@@ -11,7 +11,6 @@ interface FeatureCard {
     id: string;
     icon: string;
     title: string;
-    text: string;
     featured?: boolean;
 }
 
@@ -19,7 +18,7 @@ interface Testimonial {
     id: string;
     quote: string;
     name: string;
-    role: string;
+    
     featured?: boolean;
 }
 
@@ -28,26 +27,22 @@ const FEATURE_CARDS: FeatureCard[] = [
         id: "money-back",
         icon: moneyBackIcon,
         title: "Money-Back Policy",
-        text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966, when designers at Letraset and James Mosley, the librarian at St Bride Printing Library in London.",
         featured: true,
     },
     {
         id: "customer-satisfaction",
         icon: customerSatisfactionIcon,
         title: "Customer Satisfaction",
-        text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966, when designers at Letraset and James Mosley, the librarian at St Bride Printing Library in London.",
     },
     {
         id: "clock-support",
         icon: clockSupportIcon,
         title: "Round-the-Clock Support",
-        text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966, when designers at Letraset and James Mosley, the librarian at St Bride Printing Library in London.",
     },
     {
         id: "crafted-design",
         icon: craftedDesignIcon,
         title: "Custom Crafted Designs",
-        text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966, when designers at Letraset and James Mosley, the librarian at St Bride Printing Library in London.",
     },
 ];
 
@@ -78,26 +73,23 @@ function openLiveChat() {
 
 const TESTIMONIALS: Testimonial[] = [
     {
-        id: "ahmed",
+        id: "Raymond",
         quote:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966, when designers at Letraset and James Mosley, the librarian at St Bride Printing Library in London,Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966.",
-        name: "Ahmed R.",
-        role: "Founder, Tech Startup",
+            "Outstanding service! Granite Codes transformed our outdated website into a modern masterpiece. Their attention to detail and responsiveness were exceptional. We've seen a significant boost in online traffic and engagement.",
+        name: "Raymond Joy",
     },
     {
-        id: "jullie",
+        id: "Samuel",
         quote:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966, when designers at Letraset and James Mosley, the librarian at St Bride Printing Library in London,Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966.",
-        name: "Jullie J.",
-        role: "Operations Head, Fast-Growing eCommerce Store",
+            "Granite Codes's web design and development expertise exceeded our expectations. They delivered a stunning, user-friendly website that perfectly represents our brand. Their global approach truly sets them apart in the industry.",
+        name: "Samuel Heart",
         featured: true,
     },
     {
-        id: "lisa",
+        id: "Tiffany",
         quote:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966, when designers at Letraset and James Mosley, the librarian at St Bride Printing Library in London.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966.",
-        name: "Lisa M.",
-        role: "Marketing Director, Leading Retail Brand",
+            "Working with Granite Codes has been a game-changer for our business. Their mobile app development skills are top-notch, resulting in an app that our customers love. We couldn't be happier with the results.",
+        name: "Tiffany Lewis",
     },
 ];
 
@@ -115,10 +107,9 @@ export function FeatureHighlights() {
     return (
         <div className="ts-features">
             <div className="ts-header">
-                <h2>Client-focused, innovation-driven, and results-driven.</h2>
+                <h2>Achieve Professional Growth through Brand Enhancement</h2>
                 <p>
-                    Dive into our portfolio, where innovation meets design excellence,
-                    creating digital experiences that leave a lasting impact.
+                    From the initial conceptualization till the final delivery of the designs, we make sure each and every step is smooth transparent & flawless.
                 </p>
             </div>
 
@@ -136,7 +127,7 @@ export function FeatureHighlights() {
                             <img src={card.icon} alt="" />
                         </div>
                         <h3>{card.title}</h3>
-                        <p>{card.text}</p>
+                        
                     </motion.div>
                 ))}
             </div>
@@ -191,7 +182,7 @@ export function Testimonials() {
                             <a href="#" className="ts-author-name">
                                 {t.name}
                             </a>
-                            <p className="ts-author-role">{t.role}</p>
+                            
                         </div>
                     </motion.div>
                 ))}

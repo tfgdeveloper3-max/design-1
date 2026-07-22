@@ -13,19 +13,19 @@ const cards = [
         number: '02',
         icon: '/Images/Icon4.png',
         title: 'Digital Marketing',
-        desc: 'We leverage SEO, content marketing, and social media strategies to drive organic and paid traffic to your business, ensuring maximum visibility and engagement.',
+        desc: 'Drive online success with data-driven digital marketing strategies tailored to your goals and audience.',
     },
     {
         number: '03',
         icon: '/Images/Icon2.png',
         title: 'Website Development',
-        desc: 'We create innovative and data-driven marketing campaigns tailored to your industry. From SEO to social media and beyond, we have got you covered.',
+        desc: "Custom web development for an online presence that's as unique as your business.",
     },
     {
         number: '04',
         icon: '/Images/Icon3.png',
         title: 'Mobile Apps Development',
-        desc: 'We create innovative and data-driven marketing campaigns tailored to your industry. From SEO to social media and beyond, we have got you covered.',
+        desc: "Create engaging, feature-rich mobile apps for iOS and Android to meet your users' needs.",
     },
 ]
 

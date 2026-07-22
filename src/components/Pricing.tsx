@@ -253,10 +253,7 @@ export default function Pricing() {
                         Explore Our Pricing Packages
                     </motion.h2>
                     <motion.p className="pricing__desc" variants={fadeUp}>
-                        Whether you're launching a startup or scaling an enterprise, our
-                        packages are designed to fit your needs and budget. Get everything
-                        you need in one place, from simple website setup to full-scale
-                        digital transformations.
+                        At Granite Codes, we transform imaginative concepts into sophisticated designs, captivating experiences, and memorable brands.
                     </motion.p>
                 </motion.div>
 

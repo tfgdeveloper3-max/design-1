@@ -71,12 +71,7 @@ export default function Footer() {
                         <span className="ftr__hero-gradient">Deserves to Soar.</span>
                     </h2>
                     <p>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting
-                        industry. Lorem Ipsum has been the industry&apos;s standard dummy
-                        text ever since 1966, when designers at Letraset and James
-                        Mosley, the librarian at St Bride Printing Library in London,
-                        took a 1914 Cicero translation and scrambled it to make dummy
-                        text for Letraset&apos;s Body Type sheets.
+                        Granite Codes is your all-in-one web design and development agency, featuring a team of skilled and imaginative developers, marketers, and designers. We work together to provide comprehensive solutions that precisely align with our client's business needs.
                     </p>
 
                     <button className="ftr__cta animate__animated animate__pulse animate__infinite animate__slower" onClick={() => setIsModalOpen(true)}>
