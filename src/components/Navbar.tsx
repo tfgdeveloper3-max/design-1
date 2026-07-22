@@ -44,7 +44,7 @@ export default function Navbar() {
                         </span>
                         <div className="navbar__info-text">
                             <span className="navbar__info-label">Call Us On</span>
-                            <span className="navbar__info-value">801-448-3385</span>
+                            <span className="navbar__info-value">(323) 968-5109</span>
                         </div>
                     </div>
 

@@ -4,6 +4,8 @@ import moneyBackIcon from "/Images/money-back.png";
 import customerSatisfactionIcon from "/Images/customer-satisfaction.png";
 import clockSupportIcon from "/Images/clock-support.png";
 import craftedDesignIcon from "/Images/crafted-design.png";
+import { useState } from "react";
+import LeadModal from "./LeadModal";
 
 interface FeatureCard {
     id: string;
@@ -49,6 +51,31 @@ const FEATURE_CARDS: FeatureCard[] = [
     },
 ];
 
+function openLiveChat() {
+    if (typeof window === "undefined") return;
+
+    if (window.LiveChatWidget) {
+        window.LiveChatWidget.call("maximize");
+        return;
+    }
+
+    const lc = (window as any).LC_API;
+    if (lc && typeof lc.open_chat_window === "function") {
+        lc.open_chat_window();
+        return;
+    }
+
+    const selectors = [
+        "#chat-widget-container button",
+        "[id^='chat-widget']",
+        "iframe[title*='chat' i]",
+    ];
+    for (const sel of selectors) {
+        const el = document.querySelector<HTMLElement>(sel);
+        if (el) { el.click(); return; }
+    }
+}
+
 const TESTIMONIALS: Testimonial[] = [
     {
         id: "ahmed",
@@ -83,6 +110,8 @@ function Stars() {
 }
 
 export function FeatureHighlights() {
+
+    const [isModalOpen, setIsModalOpen] = useState(false)
     return (
         <div className="ts-features">
             <div className="ts-header">
@@ -113,9 +142,12 @@ export function FeatureHighlights() {
             </div>
 
             <div className="ts-cta">
-                <button className="ts-btn ts-btn--blue">Get Started</button>
-                <button className="ts-btn ts-btn--orange">Get Started</button>
+                <button className="ts-btn ts-btn--blue" onClick={() => setIsModalOpen(true)}>Get Started</button>
+                <button className="ts-btn ts-btn--orange" onClick={openLiveChat}>Live Chat</button>
             </div>
+
+            <LeadModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+
         </div>
     );
 }
@@ -173,6 +205,8 @@ export default function TrustSection() {
         <section className="ts">
             <FeatureHighlights />
             <Testimonials />
+
+            
         </section>
     );
 }

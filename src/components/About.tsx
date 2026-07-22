@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion'
 import { Check, ArrowRight } from 'lucide-react'
+import LeadModal from '../components/LeadModal'
+import { useState } from 'react'
 
 const servicesLeft = [
     'Website Design & Development',
@@ -81,6 +83,8 @@ const cardBottom = {
 }
 
 export default function About() {
+    const [isModalOpen, setIsModalOpen] = useState(false)
+
     return (
         <section className="about">
             <div className="container about__inner">
@@ -172,6 +176,7 @@ export default function About() {
                             whileHover={{ scale: 1.05, y: -3 }}
                             whileTap={{ scale: 0.96 }}
                             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                            onClick={() => setIsModalOpen(true)}
                         >
                             Get Started
                             <ArrowRight size={16} strokeWidth={2.4} />
@@ -179,6 +184,8 @@ export default function About() {
                     </motion.div>
                 </motion.div>
             </div>
+
+            <LeadModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </section>
     )
 }

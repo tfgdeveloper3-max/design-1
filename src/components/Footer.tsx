@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import LeadModal from "./LeadModal";
 
 type LinkItem = { label: string; href: string };
 
@@ -46,6 +47,7 @@ const itemVariants = {
 };
 
 export default function Footer() {
+    const [isModalOpen, setIsModalOpen] = useState(false)
     const [activeId, setActiveId] = useState(SECTIONS[0].id);
     const active = SECTIONS.find((s) => s.id === activeId)!;
 
@@ -77,7 +79,7 @@ export default function Footer() {
                         text for Letraset&apos;s Body Type sheets.
                     </p>
 
-                    <button className="ftr__cta animate__animated animate__pulse animate__infinite animate__slower">
+                    <button className="ftr__cta animate__animated animate__pulse animate__infinite animate__slower" onClick={() => setIsModalOpen(true)}>
                         Get Started
                         <span className="ftr__cta-arrow">→</span>
                     </button>
@@ -141,23 +143,23 @@ export default function Footer() {
                                 >
                                     <motion.a
                                         className="ftr__contact-row"
-                                        href="tel:+11234567890"
+                                        href="tel:3239685109"
                                         variants={itemVariants}
                                         initial="hidden"
                                         animate="show"
                                     >
                                         <span className="ftr__contact-icon">☎</span>
-                                        (123) 456-7890
+                                        (323) 968-5109
                                     </motion.a>
                                     <motion.a
                                         className="ftr__contact-row"
-                                        href="mailto:info@loremipsum.com"
+                                        href="mailto:info@granitecodes.com"
                                         variants={itemVariants}
                                         initial="hidden"
                                         animate="show"
                                     >
                                         <span className="ftr__contact-icon">✉</span>
-                                        info@loremipsum.com
+                                        info@granitecodes.com
                                     </motion.a>
                                     <motion.p
                                         className="ftr__contact-note"
@@ -184,6 +186,9 @@ export default function Footer() {
                     <a href="#">Privacy Policy</a>
                 </div>
             </div>
+
+            <LeadModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+
         </footer>
     );
 }

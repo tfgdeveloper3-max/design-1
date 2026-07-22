@@ -1,4 +1,6 @@
 import { motion } from 'framer-motion'
+import LeadModal from '../components/LeadModal'
+import { useState } from 'react';
 
 const containerVariants = {
     hidden: {},
@@ -11,6 +13,31 @@ const containerVariants = {
     },
 }
 
+function openLiveChat() {
+    if (typeof window === "undefined") return;
+
+    if (window.LiveChatWidget) {
+        window.LiveChatWidget.call("maximize");
+        return;
+    }
+
+    const lc = (window as any).LC_API;
+    if (lc && typeof lc.open_chat_window === "function") {
+        lc.open_chat_window();
+        return;
+    }
+
+    const selectors = [
+        "#chat-widget-container button",
+        "[id^='chat-widget']",
+        "iframe[title*='chat' i]",
+    ];
+    for (const sel of selectors) {
+        const el = document.querySelector<HTMLElement>(sel);
+        if (el) { el.click(); return; }
+    }
+}
+
 const fadeUp = {
     hidden: { opacity: 0, y: 28 },
     visible: {
@@ -21,6 +48,8 @@ const fadeUp = {
 }
 
 export default function CTA() {
+    const [isModalOpen, setIsModalOpen] = useState(false)
+
     return (
         <section className="cta">
             <div className="cta__bg" />
@@ -35,7 +64,7 @@ export default function CTA() {
                 <motion.h2 className="cta__title" variants={fadeUp}>
                     Require a Rapid Project Delivery?
                     <br />
-                    Contact Us Now – We're Ready to Assist!
+                    Contact Us Now - We're Ready to Assist!
                 </motion.h2>
 
                 <motion.p className="cta__desc" variants={fadeUp}>
@@ -51,6 +80,7 @@ export default function CTA() {
                         whileHover={{ scale: 1.05, y: -3 }}
                         whileTap={{ scale: 0.96 }}
                         transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                        onClick={() => setIsModalOpen(true)}
                     >
                         Get Started
                     </motion.button>
@@ -59,11 +89,14 @@ export default function CTA() {
                         whileHover={{ scale: 1.05, y: -3 }}
                         whileTap={{ scale: 0.96 }}
                         transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                        onClick={openLiveChat}
                     >
-                        Get Started
+                        Live Chat
                     </motion.button>
                 </motion.div>
             </motion.div>
+            <LeadModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+
         </section>
     )
 }

@@ -1,6 +1,8 @@
-import { type ReactNode } from 'react'
+import { useState, type ReactNode } from 'react'
 import { motion } from 'framer-motion'
 import { Check } from 'lucide-react'
+import { useLeadForm } from '../hooks/UseLeadForm'
+import LeadModal from '../components/LeadModal'
 
 const features = [
     'Expand Your Online Presence Globally',
@@ -39,7 +41,35 @@ const formVariants = {
     },
 }
 
+function openLiveChat() {
+    if (typeof window === "undefined") return;
+
+    if (window.LiveChatWidget) {
+        window.LiveChatWidget.call("maximize");
+        return;
+    }
+
+    const lc = (window as any).LC_API;
+    if (lc && typeof lc.open_chat_window === "function") {
+        lc.open_chat_window();
+        return;
+    }
+
+    const selectors = [
+        "#chat-widget-container button",
+        "[id^='chat-widget']",
+        "iframe[title*='chat' i]",
+    ];
+    for (const sel of selectors) {
+        const el = document.querySelector<HTMLElement>(sel);
+        if (el) { el.click(); return; }
+    }
+}
+
 export default function Hero({ children }: { children?: ReactNode }) {
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const { formData, status, errorMessage, handleChange, submitForm } = useLeadForm()
+
     return (
         <section className="hero">
             <div className="hero__bg" />
@@ -84,6 +114,7 @@ export default function Hero({ children }: { children?: ReactNode }) {
                             whileHover={{ scale: 1.05, y: -3 }}
                             whileTap={{ scale: 0.96 }}
                             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                            onClick={() => setIsModalOpen(true)}
                         >
                             Get Started
                         </motion.button>
@@ -92,8 +123,9 @@ export default function Hero({ children }: { children?: ReactNode }) {
                             whileHover={{ scale: 1.05, y: -3 }}
                             whileTap={{ scale: 0.96 }}
                             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                            onClick={openLiveChat}
                         >
-                            Get Started
+                            Live Chat
                         </motion.button>
                     </motion.div>
                 </motion.div>
@@ -119,28 +151,65 @@ export default function Hero({ children }: { children?: ReactNode }) {
                             Activate <span className="hero__form-highlight">70%</span> Off Coupon
                         </p>
 
-                        <form
-                            className="hero__form-fields"
-                            onSubmit={(e) => e.preventDefault()}
-                        >
-                            <input type="text" placeholder="Your Name" />
-                            <input type="email" placeholder="Your Email" />
-                            <input type="tel" placeholder="Your Phone" />
-                            <textarea placeholder="Enter Your Messages" rows={4} />
+                        {status === 'success' ? (
+                            <div className="hero__form-success">
+                                <p>Thanks! Your message has been sent. We&apos;ll be in touch shortly.</p>
+                            </div>
+                        ) : (
+                            <form className="hero__form-fields" onSubmit={submitForm}>
+                                <input
+                                    type="text"
+                                    name="name"
+                                    placeholder="Your Name"
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                    required
+                                />
+                                <input
+                                    type="email"
+                                    name="email"
+                                    placeholder="Your Email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    required
+                                />
+                                <input
+                                    type="tel"
+                                    name="phone_number"
+                                    placeholder="Your Phone"
+                                    value={formData.phone_number}
+                                    onChange={handleChange}
+                                    required
+                                />
+                                <textarea
+                                    name="message"
+                                    placeholder="Enter Your Messages"
+                                    rows={4}
+                                    value={formData.message}
+                                    onChange={handleChange}
+                                />
 
-                            <motion.button
-                                type="submit"
-                                className="btn btn--dark"
-                                whileHover={{ scale: 1.03 }}
-                                whileTap={{ scale: 0.97 }}
-                                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                            >
-                                LETS GET STARTED
-                            </motion.button>
-                        </form>
+                                {status === 'error' && errorMessage && (
+                                    <p className="hero__form-error">{errorMessage}</p>
+                                )}
+
+                                <motion.button
+                                    type="submit"
+                                    className="btn btn--dark"
+                                    whileHover={{ scale: 1.03 }}
+                                    whileTap={{ scale: 0.97 }}
+                                    transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                                    disabled={status === 'submitting'}
+                                >
+                                    {status === 'submitting' ? 'SENDING...' : 'LETS GET STARTED'}
+                                </motion.button>
+                            </form>
+                        )}
                     </motion.div>
                 </motion.div>
             </div>
+
+            <LeadModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </section>
     )
 }

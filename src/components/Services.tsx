@@ -1,4 +1,6 @@
 import { motion } from 'framer-motion'
+import LeadModal from './LeadModal';
+import { useState } from 'react';
 
 const cards = [
     {
@@ -26,6 +28,31 @@ const cards = [
         desc: 'We create innovative and data-driven marketing campaigns tailored to your industry. From SEO to social media and beyond, we have got you covered.',
     },
 ]
+
+function openLiveChat() {
+    if (typeof window === "undefined") return;
+
+    if (window.LiveChatWidget) {
+        window.LiveChatWidget.call("maximize");
+        return;
+    }
+
+    const lc = (window as any).LC_API;
+    if (lc && typeof lc.open_chat_window === "function") {
+        lc.open_chat_window();
+        return;
+    }
+
+    const selectors = [
+        "#chat-widget-container button",
+        "[id^='chat-widget']",
+        "iframe[title*='chat' i]",
+    ];
+    for (const sel of selectors) {
+        const el = document.querySelector<HTMLElement>(sel);
+        if (el) { el.click(); return; }
+    }
+}
 
 const bannerContainer = {
     hidden: {},
@@ -78,6 +105,8 @@ const cardVariants = {
 }
 
 export default function Services() {
+    const [isModalOpen, setIsModalOpen] = useState(false)
+
     return (
         <section className="services">
             <div className="container">
@@ -103,6 +132,7 @@ export default function Services() {
                                 whileHover={{ scale: 1.05, y: -3 }}
                                 whileTap={{ scale: 0.96 }}
                                 transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                                onClick={() => setIsModalOpen(true)}
                             >
                                 Get Started
                             </motion.button>
@@ -111,8 +141,9 @@ export default function Services() {
                                 whileHover={{ scale: 1.05, y: -3 }}
                                 whileTap={{ scale: 0.96 }}
                                 transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                                onClick={openLiveChat}
                             >
-                                Get Started
+                                Live Chat
                             </motion.button>
                         </motion.div>
                     </div>
@@ -158,6 +189,9 @@ export default function Services() {
                     ))}
                 </motion.div>
             </div>
+
+            <LeadModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+
         </section>
     )
 }
