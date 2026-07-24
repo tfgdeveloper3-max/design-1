@@ -57,6 +57,14 @@ export function useLeadForm(plan?: string | null) {
             setErrorMessage(null)
 
             try {
+                // Leads dashboard ka sirf fixed schema hai (name, email, phone_number, message)
+                // — koi bhi extra key (jaise 'plan') backend silently drop kar deta hai.
+                // Isliye plan ko message field ke andar hi prepend kar rahe hain, taake
+                // dashboard pe guaranteed dikhe.
+                const messageWithPlan = plan
+                    ? `Plan: ${plan}${formData.message ? `\n\n${formData.message}` : ''}`
+                    : formData.message
+
                 const res = await fetch(API_URL, {
                     method: 'POST',
                     headers: {
@@ -64,7 +72,7 @@ export function useLeadForm(plan?: string | null) {
                     },
                     body: JSON.stringify({
                         ...formData,
-                        plan: plan ?? 'Not specified',
+                        message: messageWithPlan,
                     }),
                 })
 
