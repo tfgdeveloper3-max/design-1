@@ -2078,3 +2078,9 @@ a {
   font-size: 14px;
   margin: 0;
 }
+
+.navbar__logo-img {
+  width: 180px;
+  height: auto;
+  display: block;
+}

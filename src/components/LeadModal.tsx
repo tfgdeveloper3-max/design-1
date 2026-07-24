@@ -6,6 +6,7 @@ import { useLeadForm } from '../hooks/UseLeadForm'
 interface LeadModalProps {
     isOpen: boolean
     onClose: () => void
+    plan?: string | null
 }
 
 const backdropVariants = {
@@ -29,9 +30,9 @@ const modalVariants = {
     },
 }
 
-export default function LeadModal({ isOpen, onClose }: LeadModalProps) {
+export default function LeadModal({ isOpen, onClose, plan }: LeadModalProps) {
     const { formData, status, errorMessage, handleChange, submitForm, resetForm } =
-        useLeadForm()
+        useLeadForm(plan)
 
     useEffect(() => {
         if (!isOpen) return
@@ -90,6 +91,13 @@ export default function LeadModal({ isOpen, onClose }: LeadModalProps) {
                         <p className="hero__form-sub">
                             Activate <span className="hero__form-highlight">70%</span> Off Coupon
                         </p>
+
+                        {/* Selected plan ka naam yahan dikha diya, taake user ko confirm ho jaye */}
+                        {plan && (
+                            <p className="hero__form-plan">
+                                Selected Plan: <strong>{plan}</strong>
+                            </p>
+                        )}
 
                         {status === 'success' ? (
                             <div className="lead-modal__success">

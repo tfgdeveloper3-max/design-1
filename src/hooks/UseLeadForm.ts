@@ -19,7 +19,12 @@ const initialFormData: LeadFormData = {
 
 export type SubmitStatus = 'idle' | 'submitting' | 'success' | 'error'
 
-export function useLeadForm() {
+/**
+ * @param plan - jis plan ke "Buy Now" button se yeh form khula hai,
+ * uska naam yahan pass karo. Submit hote waqt yeh formData ke sath
+ * API ko bhej diya jayega.
+ */
+export function useLeadForm(plan?: string | null) {
     const [formData, setFormData] = useState<LeadFormData>(initialFormData)
     const [status, setStatus] = useState<SubmitStatus>('idle')
     const [errorMessage, setErrorMessage] = useState<string | null>(null)
@@ -57,7 +62,10 @@ export function useLeadForm() {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(formData),
+                    body: JSON.stringify({
+                        ...formData,
+                        plan: plan ?? 'Not specified',
+                    }),
                 })
 
                 if (!res.ok) {
@@ -74,7 +82,7 @@ export function useLeadForm() {
                 setErrorMessage('Something went wrong. Please try again in a moment.')
             }
         },
-        [formData]
+        [formData, plan]
     )
 
     return { formData, status, errorMessage, handleChange, submitForm, resetForm }

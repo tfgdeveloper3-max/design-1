@@ -15,6 +15,32 @@ const navContainerVariants = {
     },
 }
 
+function openLiveChat() {
+    if (typeof window === "undefined") return;
+
+    if (window.LiveChatWidget) {
+        window.LiveChatWidget.call("maximize");
+        return;
+    }
+
+    const lc = (window as any).LC_API;
+    if (lc && typeof lc.open_chat_window === "function") {
+        lc.open_chat_window();
+        return;
+    }
+
+    const selectors = [
+        "#chat-widget-container button",
+        "[id^='chat-widget']",
+        "iframe[title*='chat' i]",
+    ];
+    for (const sel of selectors) {
+        const el = document.querySelector<HTMLElement>(sel);
+        if (el) { el.click(); return; }
+    }
+}
+
+
 const itemVariants = {
     hidden: { opacity: 0, y: -16 },
     visible: {
@@ -34,7 +60,11 @@ export default function Navbar() {
         >
             <div className="container navbar__inner">
                 <motion.div className="navbar__logo" variants={itemVariants}>
-                    LOGO HERE
+                    <img
+                        src="/Images/logo.png"
+                        alt="Logo"
+                        className="navbar__logo-img"
+                    />
                 </motion.div>
 
                 <motion.div className="navbar__right" variants={itemVariants}>
@@ -63,6 +93,7 @@ export default function Navbar() {
                         whileHover={{ scale: 1.04, y: -2 }}
                         whileTap={{ scale: 0.97 }}
                         transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                        onClick={openLiveChat}
                     >
                         Let's Chat
                     </motion.button>
@@ -72,6 +103,9 @@ export default function Navbar() {
                         whileHover={{ scale: 1.04, y: -2 }}
                         whileTap={{ scale: 0.97 }}
                         transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                        onClick={() => {
+                            window.location.href = "tel:+13239685109";
+                        }}
                     >
                         Call Now
                     </motion.button>
